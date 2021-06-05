@@ -6,19 +6,15 @@ inputs:
   repo:
     description: 'The GitHub module repository in "username/repo" format'
     required: true
-    default: "${GITHUB_REPOSITORY}"
   v1ref:
     description: 'The GitHub module repository git ref to pass as the "<v1ref>" to terrajux'
     required: true
-    default: "${GITHUB_REF}"
   v2ref:
     description: 'The GitHub module repository git ref to pass as the "<v2ref>" to terrajux'
     required: true
-    default: "${GITHUB_HEAD_REF}"
   subpath:
     description: 'The GitHub module repository subpath to pass as the "<subpath>" to terrajux'
     required: true
-    default: "${GITHUB_WORKSPACE}"
 runs:
   using: 'docker'
   image: 'Dockerfile'
