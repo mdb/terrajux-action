@@ -1,3 +1,5 @@
+[![CI](https://github.com/mdb/terrajux-action/actions/workflows/main.yml/badge.svg)](https://github.com/mdb/terrajux-action/actions/workflows/main.yml)
+
 # terrajux-action
 
 A [GitHub Action](https://github.com/features/actions) for executing [terrajux](https://github.com/rhenning/terrajux).
