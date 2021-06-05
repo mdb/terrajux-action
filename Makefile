@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build test
 
 build:
 	docker build -t terrajux-action .
