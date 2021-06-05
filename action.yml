@@ -2,26 +2,26 @@ name: 'terrajux'
 
 description: 'GitHub Action that runs terrajux'
 
+inputs:
+  repo:
+    description: 'The GitHub module repository in "username/repo" format'
+    required: true
+    default: ${{ env.GITHUB_REPOSITORY }}
+  v1ref:
+    description: 'The GitHub module repository git ref to pass as the "<v1ref>" to terrajux'
+    required: true
+    default: ${{ env.GITHUB_REF }}
+  v2ref:
+    description: 'The GitHub module repository git ref to pass as the "<v2ref>" to terrajux'
+    required: true
+    default: ${{ env.GITHUB_HEAD_REF }}
+  subpath:
+    description: 'The GitHub module repository subpath to pass as the "<subpath>" to terrajux'
+    required: true
+    default: ${{ env.GITHUB_WORKSPACE }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  inputs:
-    repo:
-      description: 'The GitHub module repository in "username/repo" format'
-      required: true
-      default: ${{ env.GITHUB_REPOSITORY }}
-    v1ref:
-      description: 'The GitHub module repository git ref to pass as the "<v1ref>" to terrajux'
-      required: true
-      default: ${{ env.GITHUB_REF }}
-    v2ref:
-      description: 'The GitHub module repository git ref to pass as the "<v2ref>" to terrajux'
-      required: true
-      default: ${{ env.GITHUB_HEAD_REF }}
-    subpath:
-      description: 'The GitHub module repository subpath to pass as the "<subpath>" to terrajux'
-      required: true
-      default: ${{ env.GITHUB_WORKSPACE }}
   args:
     - ${{ inputs.repo }}
     - ${{ inputs.v1ref }}
