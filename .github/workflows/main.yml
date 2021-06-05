@@ -1,0 +1,14 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - uses: mdb/terrajux-action@main
+      with:
+        repo: "terraform-aws-modules/terraform-aws-iam"
+        v1ref: "v3.15.0"
+        v2ref: "v3.16.0"
