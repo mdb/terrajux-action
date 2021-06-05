@@ -4,7 +4,7 @@
 
 A [GitHub Action](https://github.com/features/actions) for executing [terrajux](https://github.com/rhenning/terrajux).
 
-`terrajux-action` visualizes all code differences introduced by a Terraform module change, including those of upstream module dependencies.
+`terrajux-action` makes Terraform code reviews easier by reporting all code differences introduced by a Terraform module version change, including those of the module's upstream module dependencies.
 
 ## Inputs
 
