@@ -20,5 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - run: gh auth login
     - run: make prerelease
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
