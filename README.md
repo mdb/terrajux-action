@@ -50,5 +50,5 @@ See `terrajux-action`'s own `.github/workflows` for additional examples.
 
 * more robust tests
 * research the use of [actions/checkout](https://github.com/actions/checkout) rather than tasking `terrajux` to `git clone`
-* create more formalized semantic version release process
+* associate changelog with each release
 * experimental: research techniques for exiting nonzero based on "policy" violations
