@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
+    - run: make check-tag
     - uses: mdb/terrajux-action@main
       with:
         repo: "terraform-aws-modules/terraform-aws-iam"
