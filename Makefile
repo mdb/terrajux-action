@@ -5,18 +5,24 @@ GIT_SHA := $(shell git rev-parse --short HEAD)
 .PHONY: build test release
 
 build:
-	docker build -t terrajux-action .
+	@@docker build -t terrajux-action .
 
 test:
-	docker run \
+	@@docker run \
 		--rm \
 		--tty \
 		--interactive \
 		--entrypoint /test.sh \
 		$(NAME)
 
-prerelease:
-	gh \
+check-tag:
+	@@if git rev-parse $(VERSION) >/dev/null 2>&1; then \
+		echo "found existing $(VERSION) git tag"; \
+		exit 1; \
+	fi
+
+prerelease: check-tag
+	@@gh \
 		release \
 			create \
 				"$(VERSION)-$(GIT_SHA)" \
@@ -24,17 +30,24 @@ prerelease:
 				--notes "$(NAME) prerelease version $(VERSION)-$(GIT_SHA)" \
 				--prerelease
 
-release:
-	gh \
+release: check-tag
+	@@gh \
 		release \
 			create \
 				"$(VERSION)" \
 				--title "$(VERSION)" \
 				--notes "$(NAME) version $(VERSION)"
 
-delete-tag:
-	git \
+delete-prerelease-tag:
+	@@git \
 		push \
 			--delete \
 			origin \
 			$(VERSION)-$(GIT_SHA)
+
+delete-release-tag:
+	@@git \
+		push \
+			--delete \
+			origin \
+			$(VERSION)
