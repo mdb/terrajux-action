@@ -35,6 +35,7 @@ RUN \
   rm -rf terrajux_0.2.0_linux_amd64 && \
   rm terrajux_0.2.0_linux_amd64.tar.gz
 
+COPY VERSION /VERSION
 COPY entrypoint.sh /entrypoint.sh
 COPY test.sh /test.sh
 RUN ./test.sh
