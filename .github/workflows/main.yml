@@ -14,3 +14,10 @@ jobs:
         v1ref: "v3.15.0"
         v2ref: "v3.16.0"
         subpath: "."
+  publish-prerelease:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - run: make prerelease
