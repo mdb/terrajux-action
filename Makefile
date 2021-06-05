@@ -1,3 +1,4 @@
+NAME=terrajux-action
 VERSION := $(shell cat VERSION)
 GIT_SHA := $(shell git rev-parse --short HEAD)
 
@@ -12,7 +13,7 @@ test:
 		--tty \
 		--interactive \
 		--entrypoint /test.sh \
-		terrajux-action
+		$(NAME)
 
 prerelease:
 	gh \
@@ -20,8 +21,16 @@ prerelease:
 			create \
 				"$(VERSION)-$(GIT_SHA)" \
 				--title "$(VERSION)-$(GIT_SHA)" \
-				--notes "terrajux version $(VERSION)-$(GIT_SHA)" \
+				--notes "$(NAME) prerelease version $(VERSION)-$(GIT_SHA)" \
 				--prerelease
+
+release:
+	gh \
+		release \
+			create \
+				"$(VERSION)" \
+				--title "$(VERSION)" \
+				--notes "$(NAME) version $(VERSION)"
 
 delete-tag:
 	git \
