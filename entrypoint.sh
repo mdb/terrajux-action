@@ -4,7 +4,7 @@ set -o nounset -e
 
 diff_tool_template="git \
   --no-pager \
-  -c advice.detachedHead= \
+  -c advice.detachedHead= color.ui=always \
   diff \
     --color=auto \
     --no-ext-diff \
