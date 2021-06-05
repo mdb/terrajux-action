@@ -20,4 +20,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
+    - run: gh auth login
     - run: make prerelease
