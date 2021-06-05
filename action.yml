@@ -15,6 +15,7 @@ inputs:
   subpath:
     description: 'The GitHub module repository subpath to pass as the "<subpath>" to terrajux'
     required: true
+    default: "."
 runs:
   using: 'docker'
   image: 'Dockerfile'
