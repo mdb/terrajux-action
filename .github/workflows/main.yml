@@ -13,6 +13,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@main
     - uses: docker/build-push-action@v1
       with:
         username: mdb
