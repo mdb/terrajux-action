@@ -4,11 +4,36 @@ on: [push]
 
 jobs:
   build:
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
     - run: make
-  test:
+  publish-container-image:
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: docker/build-push-action@v1
+      with:
+        username: mdb
+        password: ${{ secrets.CR_PAT }}
+        registry: ghcr.io
+        repository: mdb/terrajux-action
+        tag_with_ref: true
+        tags: latest
+  test-container-image:
+    if: github.ref == 'refs/heads/main'
+    needs: publish-container-image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - run: make check-tag
+    - uses: docker://ghcr.io/mdb/terrajux-action:latest
+      with:
+        repo: "terraform-aws-modules/terraform-aws-iam"
+        v1ref: "v3.15.0"
+        v2ref: "v3.16.0"
+        subpath: "."
+  test-main-code:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +47,7 @@ jobs:
         subpath: "."
   publish-prerelease:
     if: github.ref == 'refs/heads/main'
-    needs: test
+    needs: test-main-code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main

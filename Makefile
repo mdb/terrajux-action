@@ -5,7 +5,7 @@ GIT_SHA := $(shell git rev-parse --short HEAD)
 .PHONY: build test release
 
 build:
-	@@docker build -t terrajux-action .
+	@@docker build -t ghcr.io/mdb/$(NAME) .
 
 test:
 	@@docker run \
