@@ -9,32 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - run: make
-  publish-container-image:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@main
-    - uses: docker/build-push-action@v1
-      with:
-        username: clapclapexcitement
-        password: ${{ secrets.CR_PAT }}
-        registry: hub.docker.com
-        repository: clapclapexcitement/terrajux-action
-        tag_with_ref: true
-        tags: latest
-  test-container-image:
-    if: github.ref == 'refs/heads/main'
-    needs: publish-container-image
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@main
-    - run: make check-tag
-    - uses: docker://hub.docker.com/clapclapexcitement/terrajux-action:latest
-      with:
-        repo: "terraform-aws-modules/terraform-aws-iam"
-        v1ref: "v3.15.0"
-        v2ref: "v3.16.0"
-        subpath: "."
   test-main-code:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -56,3 +30,30 @@ jobs:
     - run: make prerelease
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  publish-container-image:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: test-main-code
+    steps:
+    - uses: actions/checkout@main
+    - uses: docker/build-push-action@v1
+      with:
+        username: clapclapexcitement
+        password: ${{ secrets.DOCKER_HUB_LOGIN }}
+        registry: hub.docker.com
+        repository: clapclapexcitement/terrajux-action
+        tag_with_ref: true
+        tags: latest
+  test-container-image:
+    if: github.ref == 'refs/heads/main'
+    needs: publish-container-image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - run: make check-tag
+    - uses: docker://hub.docker.com/clapclapexcitement/terrajux-action:latest
+      with:
+        repo: "terraform-aws-modules/terraform-aws-iam"
+        v1ref: "v3.15.0"
+        v2ref: "v3.16.0"
+        subpath: "."
