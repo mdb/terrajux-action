@@ -44,6 +44,17 @@ A common configuration to run `terrajux` against a pull request might look like 
 
 ...and would offer a diff view of all code differences -- including those amongst upstream Terraform module dependencies -- introduced by the pull request.
 
+Alternatively, `terrajux-action` can be run using a pre-built container image, which tends to be a bit faster:
+
+```yaml
+- uses: docker://registry.hub.docker.com/clapclapexcitement/terrajux-action:latest
+  with:
+    repo: "terraform-aws-modules/terraform-aws-iam"
+    v1ref: "v3.15.0"
+    v2ref: "v3.16.0"
+    subpath: "."
+```
+
 See `terrajux-action`'s own `.github/workflows` for additional examples.
 
 ## TODO
