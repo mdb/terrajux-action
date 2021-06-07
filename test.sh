@@ -2,16 +2,21 @@
 
 set -o nounset -e
 
-/entrypoint.sh \
-  "terraform-aws-modules/terraform-aws-iam" \
-  "v3.15.0" \
-  "v3.16.0" \
-  "."
+repo="terraform-aws-modules/terraform-aws-iam"
+v1ref="v3.15.0"
+v2ref="v3.16.0"
+subpath="."
 
-INPUT_REPO="terraform-aws-modules/terraform-aws-iam" \
-INPUT_V1REF="v3.15.0" \
-INPUT_V2REF="v3.14.0" \
-INPUT_SUBPATH="." \
+/entrypoint.sh \
+  "${repo}" \
+  "${v1ref}" \
+  "${v2ref}" \
+  "${subpath}"
+
+INPUT_REPO="${repo}" \
+INPUT_V1REF="${v1ref}" \
+INPUT_V2REF="${v2ref}" \
+INPUT_SUBPATH="${subpath}" \
 /entrypoint.sh
 
 rm -rf /root/.terrajux/cache/github.com/
