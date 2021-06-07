@@ -12,10 +12,10 @@ diff_tool_template="git \
     --ignore-all-space \
     {{ .V1 }} {{ .V2 }}"
 
-giturl="${1}"
-v1ref="${2}"
-v2ref="${3}"
-subpath="${4}"
+giturl="${1:=${INPUT_GITURL}}"
+v1ref="${2:=${INPUT_V1REF}}"
+v2ref="${3:=${INPUT_V2REF}}"
+subpath="${4:=${INPUT_SUBPATH}}"
 
 terrajux \
   -difftool "${diff_tool_template}" \
