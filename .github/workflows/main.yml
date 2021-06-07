@@ -54,7 +54,7 @@ jobs:
     steps:
     - uses: actions/checkout@main
     - run: make check-tag
-    - uses: docker://hub.docker.com/clapclapexcitement/terrajux-action:latest
+    - uses: docker://registry.hub.docker.com/clapclapexcitement/terrajux-action:latest
       with:
         repo: "terraform-aws-modules/terraform-aws-iam"
         v1ref: "v3.15.0"
