@@ -29,11 +29,11 @@ RUN \
   curl \
     --location \
     --remote-name \
-    https://github.com/rhenning/terrajux/releases/download/v0.2.0/terrajux_0.2.0_linux_amd64.tar.gz && \
-  tar zxvf terrajux_0.2.0_linux_amd64.tar.gz && \
-  cp terrajux_0.2.0_linux_amd64/terrajux /usr/bin && \
-  rm -rf terrajux_0.2.0_linux_amd64 && \
-  rm terrajux_0.2.0_linux_amd64.tar.gz
+    https://github.com/rhenning/terrajux/releases/download/v0.3.0/terrajux_0.3.0_linux_amd64.tar.gz && \
+  tar zxvf terrajux_0.3.0_linux_amd64.tar.gz && \
+  cp terrajux_0.3.0_linux_amd64/terrajux /usr/bin && \
+  rm -rf terrajux_0.3.0_linux_amd64 && \
+  rm terrajux_0.3.0_linux_amd64.tar.gz
 
 COPY VERSION /VERSION
 COPY entrypoint.sh /entrypoint.sh
