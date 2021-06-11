@@ -8,23 +8,23 @@ A [GitHub Action](https://github.com/features/actions) for executing [terrajux](
 
 ## Inputs
 
-### `repo`
+### `git_url`
 
-**required** The GitHub Terraform module repository to pass as `<giturl>` to `terrajux`. Specified in `username/repository` format.
+**required** The Terraform module git repository URL to pass as `<giturl>` to `terrajux`.
 
-For common workflows, this might be `${{ env.GITHUB_REPOSITORY }}`. See [GitHub Actions default environment variables](https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables) for more information.
+For common workflows, this might be `file://${{ github.workspace }}`. See [GitHub Actions `github` context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) for more information.
 
-### `v1ref`
+### `v1_ref`
 
 **required** The GitHub Terraform module repository git ref to pass as `<v1ref>` to `terrajux`.
 
-For common workflows, this might be `${{ env.GITHUB_REF }}`. See [GitHub Actions default environment variables](https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables) for more information.
+For common workflows, this might be `${{ github.ref }}`. See [GitHub Actions `github` context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) for more information.
 
-### `v2ref`
+### `v2_ref`
 
 **required** The GitHub Terraform module repository git ref to pass as `<v2ref>` to `terrajux`.
 
-For common workflows, this might be `${{ env.GITHUB_HEAD_REF }}` or `${{ env.GITHUB_BASE_REF }}`. See [GitHub Actions default environment variables](https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables) for more information.
+For common workflows, this might be `${{ github.head_ref }}` or `${{ github.base_ref }}`. See [GitHub Actions `github` context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) for more information.
 
 ### `subpath`
 
@@ -35,11 +35,12 @@ The GitHub module repository subpath to pass as the `<subpath>` to `terrajux`. D
 A common configuration to run `terrajux` against a pull request might look like the following:
 
 ```yaml
+- uses: actions/checkout@main
 - uses: mdb/terrajux-action@main
   with:
-    repo: ${{ env.GITHUB_REPOSITORY }}
-    v1ref: ${{ env.GITHUB_REF }}
-    v2ref: ${{ env.GITHUB_HEAD_REF }}
+    git_url: file://${{ github.workspace }}
+    v1_ref: ${{ github.ref }}
+    v2_ref: ${{ github.head_ref }}
 ```
 
 ...and would offer a diff view of all code differences -- including those amongst upstream Terraform module dependencies -- introduced by the pull request.
@@ -47,12 +48,12 @@ A common configuration to run `terrajux` against a pull request might look like 
 Alternatively, `terrajux-action` can be run using a pre-built container image, which tends to be a bit faster:
 
 ```yaml
+- uses: actions/checkout@main
 - uses: docker://registry.hub.docker.com/clapclapexcitement/terrajux-action:latest
   with:
-    repo: "terraform-aws-modules/terraform-aws-iam"
-    v1ref: "v3.15.0"
-    v2ref: "v3.16.0"
-    subpath: "."
+    git_url: file://${{ github.workspace }}
+    v1_ref: ${{ github.ref }}
+    v2_ref: ${{ github.head_ref }}
 ```
 
 See `terrajux-action`'s own `.github/workflows` for additional examples.
@@ -60,6 +61,5 @@ See `terrajux-action`'s own `.github/workflows` for additional examples.
 ## TODO
 
 * more robust tests
-* research the use of [actions/checkout](https://github.com/actions/checkout) rather than tasking `terrajux` to `git clone`
 * associate changelog with each release
 * experimental: research techniques for exiting nonzero based on "policy" violations

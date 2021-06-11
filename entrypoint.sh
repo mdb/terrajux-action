@@ -19,7 +19,7 @@ subpath="${4:-${INPUT_SUBPATH}}"
 
 terrajux \
   -difftool "${diff_tool_template}" \
-  "https://github.com/${giturl}.git" \
+  "${giturl}" \
   "${v1ref}" \
   "${v2ref}" \
   "${subpath}"
