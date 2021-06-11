@@ -3,17 +3,17 @@ name: 'terrajux'
 description: 'GitHub Action that runs terrajux'
 
 inputs:
-  repo:
-    description: 'The GitHub module repository in "username/repo" format'
+  git_url:
+    description: 'The module git URL to pass as the "<giturl>" to terrajux'
     required: true
-  v1ref:
-    description: 'The GitHub module repository git ref to pass as the "<v1ref>" to terrajux'
+  v1_ref:
+    description: 'The module repository git ref to pass as the "<v1ref>" to terrajux'
     required: true
-  v2ref:
-    description: 'The GitHub module repository git ref to pass as the "<v2ref>" to terrajux'
+  v2_ref:
+    description: 'The module repository git ref to pass as the "<v2ref>" to terrajux'
     required: true
   subpath:
-    description: 'The GitHub module repository subpath to pass as the "<subpath>" to terrajux'
+    description: 'The module repository subpath to pass as the "<subpath>" to terrajux'
     required: true
     default: "."
 runs:
