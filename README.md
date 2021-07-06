@@ -24,7 +24,7 @@ For common workflows, this might be `${{ github.ref }}`. See [GitHub Actions `gi
 
 **required** The GitHub Terraform module repository git ref to pass as `<v2ref>` to `terrajux`.
 
-For common workflows, this might be `${{ github.head_ref }}` or `${{ github.base_ref }}`. See [GitHub Actions `github` context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) for more information.
+For common workflows, this might be `${{ github.base_ref }}` or `${{ github.head_ref }}`. See [GitHub Actions `github` context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) for more information.
 
 ### `subpath`
 
@@ -40,7 +40,7 @@ A common configuration to run `terrajux` against a pull request might look like 
   with:
     git_url: file://${{ github.workspace }}
     v1_ref: ${{ github.ref }}
-    v2_ref: ${{ github.head_ref }}
+    v2_ref: ${{ github.base_ref }}
 ```
 
 ...and would offer a diff view of all code differences -- including those amongst upstream Terraform module dependencies -- introduced by the pull request.
@@ -53,7 +53,7 @@ Alternatively, `terrajux-action` can be run using a pre-built container image, w
   with:
     git_url: file://${{ github.workspace }}
     v1_ref: ${{ github.ref }}
-    v2_ref: ${{ github.head_ref }}
+    v2_ref: ${{ github.base_ref }}
 ```
 
 See `terrajux-action`'s own `.github/workflows` for additional examples.
