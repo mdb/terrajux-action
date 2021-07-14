@@ -5,7 +5,8 @@ GIT_SHA := $(shell git rev-parse --short HEAD)
 .PHONY: build test release
 
 build:
-	@@docker build -t $(NAME) .
+	@@docker build \
+		--tag $(NAME) .
 
 test:
 	@@docker run \
