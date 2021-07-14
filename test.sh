@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -o nounset -e
+set -o errexit -o nounset -o pipefail
 
 git_url="https://github.com/terraform-aws-modules/terraform-aws-iam.git"
 v1_ref="v3.15.0"

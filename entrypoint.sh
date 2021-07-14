@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -o nounset -e
+set -o errexit -o nounset -o pipefail
 
 diff_tool_template="git \
   --no-pager \

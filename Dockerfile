@@ -1,3 +1,10 @@
+FROM koalaman/shellcheck-alpine AS shellchecker
+
+COPY entrypoint.sh /entrypoint.sh
+COPY test.sh /test.sh
+
+RUN shellcheck -x /*.sh
+
 FROM ubuntu:xenial
 
 LABEL \
@@ -36,8 +43,8 @@ RUN \
   rm terrajux_0.3.1_linux_amd64.tar.gz
 
 COPY VERSION /VERSION
-COPY entrypoint.sh /entrypoint.sh
-COPY test.sh /test.sh
+COPY --from=shellchecker /entrypoint.sh /entrypoint.sh
+COPY --from=shellchecker /test.sh /test.sh
 RUN ./test.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
